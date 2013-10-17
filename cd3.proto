@@ -1,0 +1,137 @@
+message Call {
+	enum Type {
+		N_SET_PARAMETER = 1;
+		N_GET_PARAMETER = 2;
+		N_INIT = 3;
+		N_DE_INIT = 4;
+		N_F = 5;
+		NR_GET_REGISTERED_NAMES = 51;
+		NR_CREATE_NODE = 52;
+		NR_CONTAINS = 53;
+	}
+	required Type type = 100;
+	optional NInit n_init = 200;
+	optional NDeInit n_de_init = 201;
+	optional NSetParameter n_set_parameter = 202;
+	optional NGetParameter n_get_parameter = 203;
+	optional NF n_f = 204;
+
+	optional NRGetRegisteredNames get_registered_names = 300;
+	optional NRCreateNode create_node = 301;
+	optional NRContains contains = 302;
+}
+
+message Response {
+	required Call.Type type = 1;
+
+	optional NGetParameterResp n_get_parameter = 100;
+	optional int32 n_f = 101;
+
+	optional NRGetRegisteredNamesResp get_registered_names_resp = 200;
+	optional int32 create_node_resp = 201;
+	optional bool contains_resp = 202;
+}
+
+enum DataType {
+	INT32 = 1;
+	DOUBLE = 2;
+	STRING = 3;
+	FLOW = 4;
+	DOUBLE_ARRAY = 5;
+	INT32_ARRAY = 6;
+	STRING_ARRAY = 7;
+}
+
+message FlowEntry {
+	required string name = 1;
+	required double value = 2;
+}
+
+message Flow {
+	repeated FlowEntry entries = 1;
+}
+
+message DoubleArray {
+	repeated double array = 1 [packed = true];
+}
+
+message Int32Array {
+	repeated int32 array = 1 [packed = true];
+}
+
+message StringArray {
+	repeated string array = 1;
+}
+
+message Value {
+	required DataType type = 1;
+	optional int32 int = 2;
+	optional string string = 3;
+	optional double double = 4;
+	optional Flow flow = 5;
+	optional DoubleArray double_array = 6;
+	optional Int32Array int32_array = 7;
+	optional StringArray string_array = 8;
+}
+
+message Parameter {
+	required string name = 1;
+	required Value value = 2;
+}
+
+message NSetParameter {
+	required Parameter parameter = 1;
+}
+
+message NGetParameter {	
+	required string name = 1;
+}
+
+message VoidResp {
+
+}
+
+message NGetParameterResp {
+	required Value value = 1;
+}
+
+message NInit {
+	required DateTime start = 1;
+	required DateTime stop = 2;
+	required int32 dt = 3;
+}
+
+message NDeInit {
+}
+
+message NF {
+	required DateTime current_time = 1;
+	required int32 dt = 2;
+}
+
+message DateTime {
+	required int32 day = 1;
+	required int32 month = 2;
+	required int32 year = 3;
+	required int32 hour = 4;
+	required int32 minute = 5;
+	required int32 second = 6;
+}
+
+message NRGetRegisteredNames {
+	
+}
+
+message NRCreateNode {
+	
+}
+
+message NRContains {
+	
+}
+
+message NRGetRegisteredNamesResp {
+	repeated string names = 1;
+}
+
+
