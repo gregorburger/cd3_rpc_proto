@@ -11,3 +11,8 @@
 *.lai
 *.la
 *.a
+
+# from me
+*.user
+build
+cd3_pb2.*
